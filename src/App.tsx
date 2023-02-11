@@ -1,13 +1,7 @@
-import { DrawerStyled } from "@components/ui/DrawerStyled";
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 
 function App() {
-  return (
-    <Box>
-      <p>Test</p>
-      <DrawerStyled />
-    </Box>
-  );
+  return <Grid></Grid>;
 }
 
 export default App;
