@@ -15,6 +15,11 @@ const theme = createTheme({
       contrastText: "#000",
     },
   },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {},
+    },
+  },
 });
 
 interface Props {

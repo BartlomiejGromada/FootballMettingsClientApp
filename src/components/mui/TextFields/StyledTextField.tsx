@@ -12,6 +12,7 @@ interface Props {
   };
   variant?: "outlined" | "filled" | "standard";
   size?: "small" | "medium";
+  required?: boolean;
 }
 
 function StyledTextField(props: Props) {
@@ -22,6 +23,7 @@ function StyledTextField(props: Props) {
     adornment,
     variant = "outlined",
     size = "medium",
+    required,
   } = props;
 
   return (
@@ -45,6 +47,7 @@ function StyledTextField(props: Props) {
       }}
       variant={variant}
       size={size}
+      required={required}
     />
   );
 }

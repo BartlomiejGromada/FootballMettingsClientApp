@@ -10,10 +10,11 @@ export function RegisterPage() {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      minHeight={"100vh"}
-      rowSpacing={4}
+      width={"100%"}
+      height={"100%"}
+      sx={{ backgroundColor: "#fff176" }}
     >
-      <Grid item>
+      <Grid item marginBottom={2}>
         <Logo />
       </Grid>
 

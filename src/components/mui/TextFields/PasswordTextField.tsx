@@ -38,6 +38,7 @@ function PasswordTextField(props: Props) {
           </IconButton>
         ),
       }}
+      required={true}
     />
   );
 }

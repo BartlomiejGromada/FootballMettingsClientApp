@@ -16,6 +16,7 @@ function EmailTextField() {
           </IconButton>
         ),
       }}
+      required={true}
     />
   );
 }

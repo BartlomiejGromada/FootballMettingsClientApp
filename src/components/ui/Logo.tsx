@@ -7,7 +7,7 @@ function Logo() {
       <Typography variant={"h5"} fontWeight={"bold"}>
         Football Meetings
       </Typography>
-      <SportsSoccerIcon fontSize={"large"} color={"secondary"} />
+      <SportsSoccerIcon fontSize={"large"} color={"primary"} />
     </Box>
   );
 }
