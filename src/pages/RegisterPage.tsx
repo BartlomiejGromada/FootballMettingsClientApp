@@ -1,24 +1,31 @@
 import { Logo } from "@components/ui/Logo";
 import { RegisterForm } from "@features/Register";
 import { Grid } from "@mui/material";
-import React from "react";
 
 export function RegisterPage() {
   return (
     <Grid
       container
-      direction="column"
-      alignItems="center"
+      width="100%"
+      height="100%"
       justifyContent="center"
-      width={"100%"}
-      height={"100%"}
-      sx={{ backgroundColor: "#fff176" }}
+      alignItems="center"
+      sx={{ backgroundColor: "secondary.light" }}
     >
-      <Grid item marginBottom={2}>
-        <Logo />
-      </Grid>
+      <Grid
+        container
+        flexDirection="column"
+        bgcolor="#fff"
+        paddingTop={4}
+        paddingX={4}
+        width="max-content"
+        height="80%"
+        borderRadius={2}
+      >
+        <Grid container paddingBottom={4} justifyContent="center">
+          <Logo />
+        </Grid>
 
-      <Grid item>
         <RegisterForm />
       </Grid>
     </Grid>

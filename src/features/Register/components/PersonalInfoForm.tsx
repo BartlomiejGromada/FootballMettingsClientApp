@@ -15,7 +15,7 @@ function PersonalInfoForm() {
         <DatePicker
           label="Birthday"
           inputFormat="dd.MM.yyyy"
-          value={new Date()}
+          value={null}
           onChange={() => {}}
           renderInput={(params) => <TextField {...params} />}
         />

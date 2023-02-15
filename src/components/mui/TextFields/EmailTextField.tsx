@@ -2,7 +2,12 @@ import { IconButton } from "@mui/material";
 import { StyledTextField } from "./StyledTextField";
 import EmailIcon from "@mui/icons-material/Email";
 
-function EmailTextField() {
+interface Props {
+  error?: boolean;
+  helperText?: string;
+}
+
+function EmailTextField(props: Props) {
   return (
     <StyledTextField
       label="Email"
@@ -17,6 +22,7 @@ function EmailTextField() {
         ),
       }}
       required={true}
+      {...props}
     />
   );
 }

@@ -7,6 +7,8 @@ interface Props {
   label?: string;
   id?: string;
   ariaLabelIconVisibility?: string;
+  error?: boolean;
+  helperText?: string;
 }
 
 function PasswordTextField(props: Props) {
@@ -39,6 +41,7 @@ function PasswordTextField(props: Props) {
         ),
       }}
       required={true}
+      {...props}
     />
   );
 }

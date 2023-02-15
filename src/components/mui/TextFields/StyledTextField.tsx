@@ -13,24 +13,23 @@ interface Props {
   variant?: "outlined" | "filled" | "standard";
   size?: "small" | "medium";
   required?: boolean;
+  error?: boolean;
+  helperText?: string;
 }
 
 function StyledTextField(props: Props) {
   const {
-    label,
-    id,
     type = "text",
     adornment,
     variant = "outlined",
     size = "medium",
-    required,
   } = props;
 
   return (
     <TextField
-      label={label}
-      id={id}
       type={type}
+      variant={variant}
+      size={size}
       InputProps={{
         startAdornment:
           adornment?.type === "start" ? (
@@ -45,9 +44,7 @@ function StyledTextField(props: Props) {
             </InputAdornment>
           ) : null,
       }}
-      variant={variant}
-      size={size}
-      required={required}
+      {...props}
     />
   );
 }
