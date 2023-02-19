@@ -1,6 +1,6 @@
+import EmailIcon from "@mui/icons-material/Email";
 import { IconButton } from "@mui/material";
 import { StyledTextField } from "./StyledTextField";
-import EmailIcon from "@mui/icons-material/Email";
 
 interface Props {
   error?: boolean;
@@ -11,7 +11,7 @@ function EmailTextField(props: Props) {
   return (
     <StyledTextField
       label="Email"
-      id="email"
+      name="email"
       adornment={{
         type: "end",
         position: "end",

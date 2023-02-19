@@ -5,18 +5,13 @@ import { StyledTextField } from "./StyledTextField";
 
 interface Props {
   label?: string;
-  id?: string;
-  ariaLabelIconVisibility?: string;
+  name?: string;
   error?: boolean;
   helperText?: string;
 }
 
 function PasswordTextField(props: Props) {
-  const {
-    label = "Password",
-    id = "password",
-    ariaLabelIconVisibility = "toggle password visibility",
-  } = props;
+  const { label = "Password", name = "password" } = props;
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -26,16 +21,13 @@ function PasswordTextField(props: Props) {
   return (
     <StyledTextField
       label={label}
-      id={id}
+      name={name}
       type={showPassword ? "text" : "password"}
       adornment={{
         type: "end",
         position: "end",
         content: (
-          <IconButton
-            aria-label={ariaLabelIconVisibility}
-            onClick={handleClickShowPassword}
-          >
+          <IconButton onClick={handleClickShowPassword}>
             {showPassword ? <VisibilityOff /> : <Visibility />}
           </IconButton>
         ),

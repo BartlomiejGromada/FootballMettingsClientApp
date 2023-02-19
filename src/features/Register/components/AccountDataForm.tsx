@@ -4,15 +4,11 @@ import { Grid } from "@mui/material";
 function AccountDataForm() {
   return (
     <Grid container flexDirection={"column"} gap={2}>
-      <EmailTextField error helperText="AAAA" />
+      <EmailTextField />
 
       <PasswordTextField />
 
-      <PasswordTextField
-        label="Repeat password"
-        id="repeat_password"
-        ariaLabelIconVisibility="toggle password visibility"
-      />
+      <PasswordTextField label="Confirm password" name="confirmPassword" />
     </Grid>
   );
 }
