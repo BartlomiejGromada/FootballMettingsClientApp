@@ -1,16 +1,17 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import SendIcon from "@mui/icons-material/Send";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
+import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { object, ref, string } from "yup";
 import { registerUser } from "../api";
 import { RegisterUserFormProps } from "../types/RegisterUserFormProps";
 import { AccountDataForm } from "./AccountDataForm";
 import { FormStepper } from "./FormStepper";
 import { PersonalInfoForm } from "./PersonalInfoForm";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { object, string, ref } from "yup";
 
 const schema = object<RegisterUserFormProps>({
   email: string().required("Field required").email("Invalid email format"),
@@ -27,6 +28,7 @@ const schema = object<RegisterUserFormProps>({
 
 function RegisterForm() {
   const [activeFormIndex, setActiveFormIndex] = useState(0);
+  const { enqueueSnackbar } = useSnackbar();
 
   const formMethods = useForm<RegisterUserFormProps>({
     mode: "onTouched",
@@ -39,13 +41,19 @@ function RegisterForm() {
     mutationFn: (data: RegisterUserFormProps) => {
       return registerUser(data);
     },
-    onSuccess() {
+    onSuccess: () => {
       navigate("/login");
     },
   });
 
-  const onSubmitHandler: SubmitHandler<RegisterUserFormProps> = (data) => {
-    console.log("data", data);
+  const onSubmitHandler: SubmitHandler<RegisterUserFormProps> = async (
+    data
+  ) => {
+    try {
+      await mutation.mutateAsync(data);
+    } catch (err) {
+      enqueueSnackbar((err as Error)?.message, { variant: "error" });
+    }
   };
 
   return (
@@ -84,8 +92,14 @@ function RegisterForm() {
             <Button
               type="submit"
               variant="contained"
-              endIcon={<SendIcon />}
-              disabled={!formMethods.formState.isValid}
+              endIcon={
+                mutation.isLoading ? (
+                  <CircularProgress color="secondary" size={20} />
+                ) : (
+                  <SendIcon />
+                )
+              }
+              disabled={!formMethods.formState.isValid || mutation.isLoading}
             >
               Register
             </Button>

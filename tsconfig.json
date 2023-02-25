@@ -25,6 +25,8 @@
       "@providers/*": ["providers/*"],
       "@services/*": ["services/*"],
       "@utils/*": ["utils/*"],
+      "@customTypes/*": ["customTypes/*"],
+      "@routes/*": ["routes/*"],
     }
   },
   "include": ["src"],

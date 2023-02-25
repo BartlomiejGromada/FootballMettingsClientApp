@@ -1,17 +1,21 @@
 import { MuiProvider } from "@providers/MuiProvider";
-import { RouterProvider } from "@providers/RouterProvider";
+import { ReactQueryProvider } from "@providers/ReactQueryProvider";
+import "main.css";
+import { SnackbarProvider } from "@providers/SnackbarProvider";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import "main.css";
-import { ReactQueryProvider } from "@providers/ReactQueryProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ReactQueryProvider>
       <MuiProvider>
-        <App />
-        <RouterProvider />
+        <SnackbarProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </SnackbarProvider>
       </MuiProvider>
     </ReactQueryProvider>
   </React.StrictMode>
