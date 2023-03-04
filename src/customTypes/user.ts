@@ -1,8 +1,8 @@
-export interface TokenJWT {
+export interface User {
   id: string;
   email: string;
   nickname: string;
+  name: string;
   birthdate: string;
-  exp: number;
   role: string;
 }

@@ -1,36 +1,31 @@
 import { AuthLayout } from "@components/layouts/AuthLayout";
 import { MainLayout } from "@components/layouts/MainLayout";
-import { LoginPage } from "@pages/LoginPage";
-import { RegisterPage } from "@pages/RegisterPage";
 import { Navigate } from "react-router-dom";
+import { protectedPages, protectedPagesPathes } from "./protectedPages";
+import { publicPages, publicPagesPathes } from "./publicPages";
 
 const routes = (isLoggedIn: boolean) =>
   !isLoggedIn
     ? [
         {
           element: <AuthLayout />,
-          children: [
-            {
-              path: "/login",
-              element: <LoginPage />,
-            },
-            { path: "/register", element: <RegisterPage /> },
-          ],
+          children: publicPages,
         },
         {
           path: "*",
-          element: <Navigate to="/login" />,
+          element: <Navigate to={publicPagesPathes.LoginPagePath} />,
         },
       ]
     : [
         {
           element: <MainLayout />,
-          children: [
-            {
-              path: "/football-pitches",
-              element: <div>Football pitches</div>,
-            },
-          ],
+          children: protectedPages,
+        },
+        {
+          path: "*",
+          element: (
+            <Navigate to={protectedPagesPathes.FootballPitchesPagePath} />
+          ),
         },
       ];
 

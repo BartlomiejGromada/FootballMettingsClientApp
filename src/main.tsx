@@ -6,17 +6,20 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+import { ReduxProvider } from "@providers/ReduxProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <ReactQueryProvider>
-      <MuiProvider>
-        <SnackbarProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </SnackbarProvider>
-      </MuiProvider>
-    </ReactQueryProvider>
+    <ReduxProvider>
+      <ReactQueryProvider>
+        <MuiProvider>
+          <SnackbarProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </SnackbarProvider>
+        </MuiProvider>
+      </ReactQueryProvider>
+    </ReduxProvider>
   </React.StrictMode>
 );
