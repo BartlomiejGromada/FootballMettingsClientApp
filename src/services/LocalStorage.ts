@@ -7,7 +7,7 @@ const LocalStorage = {
   },
 
   set(key: string, value: any) {
-    localStorage.setItem(key, JSON.stringify(key));
+    localStorage.setItem(key, JSON.stringify(value));
   },
 
   remove(key: string) {

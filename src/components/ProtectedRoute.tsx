@@ -1,7 +1,8 @@
 import { LocalStorage } from "@services/LocalStorage";
 import { Navigate, Outlet } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { JwtToken } from "customTypes/TokenJWT";
+import { JwtToken } from "@customTypes/jwtToken";
+import { publicPagesPathes } from "@routes/publicPages";
 
 const convertTimestampToDate = (timestamp: number) => {
   return new Date(timestamp * 1000);
@@ -23,7 +24,11 @@ function ProtectedRoute() {
     return false;
   };
 
-  return isJwtTokenValid() ? <Outlet /> : <Navigate to="/login" />;
+  return isJwtTokenValid() ? (
+    <Outlet />
+  ) : (
+    <Navigate to={publicPagesPathes.LoginPagePath} />
+  );
 }
 
 export { ProtectedRoute };
