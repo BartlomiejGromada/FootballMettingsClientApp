@@ -27,6 +27,7 @@
       "@utils/*": ["utils/*"],
       "@customTypes/*": ["customTypes/*"],
       "@routes/*": ["routes/*"],
+      "@assets/*": ["../public/assets/*"]
     }
   },
   "include": ["src"],

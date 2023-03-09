@@ -3,6 +3,7 @@ import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import InfoIcon from "@mui/icons-material/Info";
+import { FootballPitchesPage } from "@pages/FootballPitchesPage";
 
 interface ProtectedPage {
   name: string;
@@ -25,7 +26,7 @@ export const protectedPages: ProtectedPage[] = [
     name: "Football pitches",
     path: protectedPagesPathes.FootballPitchesPagePath,
     icon: GrassIcon,
-    element: <div>Football pitches</div>,
+    element: <FootballPitchesPage />,
   },
   {
     name: "Football matches",

@@ -10,6 +10,11 @@ body {
   align-items: center;
   height: 100vh;
   width: 100vw;
+  overflow-x: hidden;
+}
+
+main {
+  padding: 0 !important;
 }
 
 a {

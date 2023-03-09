@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 function MainLayout() {
   return (
-    <Grid container>
+    <Grid container height="100vh">
       <DrawerStyled>
         <Outlet />
       </DrawerStyled>

@@ -1,4 +1,3 @@
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
@@ -25,7 +24,7 @@ import { logout } from "redux/slices/authSlice";
 import { useAppDispatch, useAppSelector } from "redux/store";
 import { Logo } from "./Logo";
 
-const drawerWidth = 240;
+export const drawerWidth = 240;
 
 interface DrawerStyledProps {
   window?: () => Window;
@@ -65,21 +64,21 @@ function DrawerStyled(props: DrawerStyledProps) {
   const currentUser = useAppSelector((state) => state.auth.user);
 
   const UpperDawerContent = (
-    <List disablePadding sx={{ width: "100%" }}>
-      {protectedPages.map((page) => (
-        <ListItem disablePadding key={page.path}>
-          <ListItemButton
-            onClick={() => handleListItemClick(page.path)}
-            selected={page.path === selectedPathName}
-          >
-            <ListItemIcon>
-              {page.icon && <page.icon color="secondary" />}
-            </ListItemIcon>
-            <ListItemText primary={page.name} />
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
+    <Grid container flexDirection={"column"}>
+      <List disablePadding sx={{ width: "100%" }}>
+        {protectedPages.map((page) => (
+          <ListItem disablePadding key={page.path}>
+            <ListItemButton
+              onClick={() => handleListItemClick(page.path)}
+              selected={page.path === selectedPathName}
+            >
+              <ListItemIcon>{page.icon && <page.icon />}</ListItemIcon>
+              <ListItemText primary={page.name} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Grid>
   );
 
   const BottomDawerContent = (
@@ -133,7 +132,7 @@ function DrawerStyled(props: DrawerStyledProps) {
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          display: { sm: "none" },
           ml: { sm: `${drawerWidth}px` },
         }}
       >
@@ -147,6 +146,7 @@ function DrawerStyled(props: DrawerStyledProps) {
           >
             <MenuIcon />
           </IconButton>
+
           <Logo iconColor="secondary.light" />
         </Toolbar>
       </AppBar>
@@ -174,19 +174,6 @@ function DrawerStyled(props: DrawerStyledProps) {
             },
           }}
         >
-          <Toolbar
-            sx={{
-              background: (theme) => theme.palette.primary.main,
-              padding: 0,
-            }}
-          >
-            <IconButton onClick={handleDrawerToggle}>
-              <ChevronLeftIcon
-                titleAccess="Close"
-                sx={{ color: (theme) => theme.palette.primary.contrastText }}
-              />
-            </IconButton>
-          </Toolbar>
           {drawer}
         </Drawer>
         <Drawer
@@ -200,7 +187,6 @@ function DrawerStyled(props: DrawerStyledProps) {
           }}
           open
         >
-          <Toolbar sx={{ background: (theme) => theme.palette.primary.main }} />
           <Divider />
           {drawer}
         </Drawer>
@@ -212,9 +198,8 @@ function DrawerStyled(props: DrawerStyledProps) {
           display: "flex",
           flexDirection: "column",
           flexGrow: 1,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          height: "90vh",
-          padding: "50px 5px 0px 5px",
+          width: { sm: `calc(100vw - ${drawerWidth}px)` },
+          padding: 10,
         }}
       >
         {children}
