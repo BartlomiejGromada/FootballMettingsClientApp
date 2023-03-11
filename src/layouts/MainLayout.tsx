@@ -1,4 +1,4 @@
-import { DrawerStyled } from "@components/mui";
+import { DrawerStyled } from "@components/ui";
 import { Grid } from "@mui/material";
 import { Outlet } from "react-router-dom";
 

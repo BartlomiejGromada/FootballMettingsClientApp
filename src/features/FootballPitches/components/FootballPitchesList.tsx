@@ -1,6 +1,9 @@
+import DefaultFootballPitchImage from "@assets/DefaultFootballPitchImage.jpg";
+import { StyledPagination } from "@components/mui";
 import { FetchGetParams } from "@customTypes/fetchGetParams";
 import { InfoOutlined } from "@mui/icons-material";
 import {
+  Box,
   CircularProgress,
   Grid,
   IconButton,
@@ -8,24 +11,22 @@ import {
   ImageListItem,
   ImageListItemBar,
   Pagination,
+  TablePagination,
   useMediaQuery,
 } from "@mui/material";
 import { useState } from "react";
 import { useFootballPitchesQuery } from "../hooks/useFootballPitchesQuery";
-import DefaultFootballPitchImage from "@assets/DefaultFootballPitchImage.jpg";
-import { PageLayout } from "@components/layouts/PageLayout";
 
 export function FootballPitchesList() {
-  const [fetchParams, setFetchParams] = useState<FetchGetParams>({
-    filters: "",
-    sorts: "",
-    pageSize: 10,
-    page: 1,
-  });
-  const { data, isFetching, isError } = useFootballPitchesQuery(fetchParams);
-
   const lg = useMediaQuery("(min-width:1200px)");
   const md = useMediaQuery("(min-width:900px)");
+
+  const [pagination, setPagination] = useState({
+    page: 0,
+    pageSize: 5,
+  });
+
+  const { data, isFetching, isError } = useFootballPitchesQuery(pagination);
 
   if (isFetching) {
     return <CircularProgress />;
@@ -36,12 +37,12 @@ export function FootballPitchesList() {
   }
 
   return (
-    <PageLayout title="Football pitches" subTitle="List of football pitches">
+    <>
       <ImageList
         cols={lg ? 4 : md ? 3 : 2}
         rowHeight={200}
         gap={20}
-        variant="standard"
+        variant="quilted"
       >
         <>
           {data?.items?.map((item) => (
@@ -73,11 +74,16 @@ export function FootballPitchesList() {
         </>
       </ImageList>
 
-      <Pagination
-        count={data?.totalItemsCount}
-        page={fetchParams.page}
-        variant="outlined"
-      />
-    </PageLayout>
+      <Grid container justifyContent="flex-end">
+        <StyledPagination
+          paginationModel={{
+            pagination,
+            setPagination,
+          }}
+          rowsPerPage={[5, 10, 20]}
+          itemsCount={data?.items.length ?? 0}
+        />
+      </Grid>
+    </>
   );
 }

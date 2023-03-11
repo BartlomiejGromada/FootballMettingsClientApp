@@ -22,7 +22,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { logout } from "redux/slices/authSlice";
 import { useAppDispatch, useAppSelector } from "redux/store";
-import { Logo } from "../Logo";
+import { Logo } from "../Logo/Logo";
 import "./DrawerStyled.css";
 
 export const drawerWidth = 240;

@@ -1,5 +1,5 @@
-import { AuthLayout } from "@components/layouts/AuthLayout";
-import { MainLayout } from "@components/layouts/MainLayout";
+import { AuthLayout } from "layouts/AuthLayout";
+import { MainLayout } from "layouts/MainLayout";
 import { Navigate } from "react-router-dom";
 import { protectedPages, protectedPagesPathes } from "./protectedPages";
 import { publicPages, publicPagesPathes } from "./publicPages";

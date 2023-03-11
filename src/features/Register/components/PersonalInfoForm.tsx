@@ -1,5 +1,5 @@
 import { StyledTextField } from "@components/mui";
-import { StyledDatePicker } from "@components/mui/StyledDatePicker";
+import { StyledDatePicker } from "@components/mui";
 import { Grid } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import { RegisterUserFormProps } from "../types/RegisterUserFormProps";

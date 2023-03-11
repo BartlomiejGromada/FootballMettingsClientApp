@@ -1,4 +1,4 @@
-import { Logo } from "@components/ui/Logo";
+import { Logo } from "@components/ui";
 import { LoginForm } from "@features/Login";
 import { Grid } from "@mui/material";
 
@@ -7,12 +7,12 @@ function LoginPage() {
     <Grid
       container
       flexDirection="column"
-      flexWrap={"wrap"}
+      flexWrap="wrap"
       bgcolor="#fff"
       paddingY={4}
       paddingX={4}
       width="max-content"
-      height={"60%"}
+      height="60%"
       borderRadius={2}
       overflow="auto"
     >

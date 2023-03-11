@@ -1,4 +1,4 @@
-import { Logo } from "@components/ui/Logo";
+import { Logo } from "@components/ui";
 import { RegisterForm } from "@features/Register";
 import { Grid } from "@mui/material";
 
