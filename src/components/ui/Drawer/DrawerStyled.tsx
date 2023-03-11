@@ -22,7 +22,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { logout } from "redux/slices/authSlice";
 import { useAppDispatch, useAppSelector } from "redux/store";
-import { Logo } from "./Logo";
+import { Logo } from "../Logo";
+import "./DrawerStyled.css";
 
 export const drawerWidth = 240;
 
@@ -67,10 +68,12 @@ function DrawerStyled(props: DrawerStyledProps) {
     <Grid container flexDirection={"column"}>
       <List disablePadding sx={{ width: "100%" }}>
         {protectedPages.map((page) => (
-          <ListItem disablePadding key={page.path}>
+          <ListItem disablePadding key={page.path} sx={{ paddingX: 1 }}>
             <ListItemButton
               onClick={() => handleListItemClick(page.path)}
               selected={page.path === selectedPathName}
+              classes={{ selected: "selectedItem" }}
+              sx={{ borderRadius: 1 }}
             >
               <ListItemIcon>{page.icon && <page.icon />}</ListItemIcon>
               <ListItemText primary={page.name} />

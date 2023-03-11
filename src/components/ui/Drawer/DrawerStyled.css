@@ -1,0 +1,8 @@
+.selectedItem {
+  background-color: #68b36b !important;
+  color: white !important;
+}
+
+.selectedItem svg {
+  color: white !important;
+}

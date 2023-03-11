@@ -58,7 +58,7 @@ export function FootballPitchesList() {
               />
               <ImageListItemBar
                 title={item.name}
-                subtitle={`${item.city}, ${item.street} ${item.streetNumber}`}
+                subtitle={`${item.city}`}
                 actionIcon={
                   <IconButton
                     sx={{ color: "rgba(255, 255, 255, 0.54)" }}
