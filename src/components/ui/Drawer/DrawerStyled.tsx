@@ -16,13 +16,13 @@ import {
   Toolbar,
 } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
-import { protectedPages } from "@routes/protectedPages";
 import { publicPagesPathes } from "@routes/publicPages";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { logout } from "redux/slices/authSlice";
 import { useAppDispatch, useAppSelector } from "redux/store";
 import { Logo } from "../Logo/Logo";
+import { dawerItems } from "./dawerItems";
 import "./DrawerStyled.css";
 
 export const drawerWidth = 240;
@@ -65,18 +65,18 @@ function DrawerStyled(props: DrawerStyledProps) {
   const currentUser = useAppSelector((state) => state.auth.user);
 
   const UpperDawerContent = (
-    <Grid container flexDirection={"column"}>
+    <Grid container flexDirection={"column"} paddingTop={0.5}>
       <List disablePadding sx={{ width: "100%" }}>
-        {protectedPages.map((page) => (
-          <ListItem disablePadding key={page.path} sx={{ paddingX: 1 }}>
+        {dawerItems.map((item) => (
+          <ListItem disablePadding sx={{ paddingX: 1 }} key={item.path}>
             <ListItemButton
-              onClick={() => handleListItemClick(page.path)}
-              selected={page.path === selectedPathName}
+              onClick={() => handleListItemClick(item.path)}
+              selected={selectedPathName.includes(item.path)}
               classes={{ selected: "selectedItem" }}
               sx={{ borderRadius: 1 }}
             >
-              <ListItemIcon>{page.icon && <page.icon />}</ListItemIcon>
-              <ListItemText primary={page.name} />
+              <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -96,10 +96,10 @@ function DrawerStyled(props: DrawerStyledProps) {
       }}
     >
       <Divider flexItem />
-      <ListItem disablePadding>
+      <ListItem disablePadding sx={{ paddingX: 1 }}>
         <ListItemButton>
           <ListItemIcon>
-            <PersonIcon color="primary" />
+            <PersonIcon color="secondary" />
           </ListItemIcon>
           <ListItemText
             primary={`${currentUser?.nickname} (${currentUser?.role})`}
@@ -107,10 +107,10 @@ function DrawerStyled(props: DrawerStyledProps) {
         </ListItemButton>
       </ListItem>
 
-      <ListItem disablePadding>
+      <ListItem disablePadding sx={{ paddingX: 1 }}>
         <ListItemButton onClick={logoutHandler}>
           <ListItemIcon>
-            <LogoutIcon color="primary" />
+            <LogoutIcon color="secondary" />
           </ListItemIcon>
           <ListItemText primary="Logout" />
         </ListItemButton>
@@ -119,7 +119,7 @@ function DrawerStyled(props: DrawerStyledProps) {
   );
 
   const drawer = (
-    <Grid container justifyContent={"space-between"} height="100%">
+    <Grid container justifyContent="space-between" height="100%">
       {UpperDawerContent}
 
       {BottomDawerContent}
@@ -135,8 +135,7 @@ function DrawerStyled(props: DrawerStyledProps) {
       <AppBar
         position="fixed"
         sx={{
-          display: { sm: "none" },
-          ml: { sm: `${drawerWidth}px` },
+          display: { sm: "block", md: "none" },
         }}
       >
         <Toolbar>
@@ -145,7 +144,7 @@ function DrawerStyled(props: DrawerStyledProps) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 2, display: { md: "none" } }}
           >
             <MenuIcon />
           </IconButton>
@@ -156,7 +155,7 @@ function DrawerStyled(props: DrawerStyledProps) {
       <Box
         component="nav"
         sx={{
-          width: { sm: drawerWidth },
+          width: { md: drawerWidth },
           flexShrink: { sm: 0 },
         }}
       >
@@ -170,7 +169,7 @@ function DrawerStyled(props: DrawerStyledProps) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { sm: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -182,7 +181,7 @@ function DrawerStyled(props: DrawerStyledProps) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", md: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -201,8 +200,7 @@ function DrawerStyled(props: DrawerStyledProps) {
           display: "flex",
           flexDirection: "column",
           flexGrow: 1,
-          width: { sm: `calc(100vw - ${drawerWidth}px)` },
-          padding: 10,
+          width: { md: `calc(100vw - ${drawerWidth}px)`, sm: "100vw" },
         }}
       >
         {children}

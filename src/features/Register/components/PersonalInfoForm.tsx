@@ -2,7 +2,7 @@ import { StyledTextField } from "@components/mui";
 import { StyledDatePicker } from "@components/mui";
 import { Grid } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
-import { RegisterUserFormProps } from "../types/RegisterUserFormProps";
+import { RegisterUserFormProps } from "../types/registerUserFormProps";
 
 function PersonalInfoForm() {
   const { control } = useFormContext<RegisterUserFormProps>();

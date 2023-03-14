@@ -1,17 +1,17 @@
 import { EmailTextField, PasswordTextField } from "@components/mui";
-import { Button, CircularProgress, Grid, Typography } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import { useNavigate } from "react-router-dom";
-import { LoginUserFormProps } from "../types/LoginUserFormProps";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { object, string } from "yup";
+import SendIcon from "@mui/icons-material/Send";
+import { Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "../api";
-import { useSnackbar } from "notistack";
-import { useAppDispatch } from "redux/store";
-import { login } from "redux/slices/authSlice";
 import { AxiosResponse } from "axios";
+import { useSnackbar } from "notistack";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { login } from "redux/slices/authSlice";
+import { useAppDispatch } from "redux/store";
+import { object, string } from "yup";
+import { loginUser } from "../api";
+import { LoginUserFormProps } from "../types/loginUserFormProps";
 
 const schema = object<LoginUserFormProps>({
   email: string().required("Field required").email("Invalid email format"),

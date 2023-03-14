@@ -8,7 +8,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { object, ref, string } from "yup";
 import { registerUser } from "../api";
-import { RegisterUserFormProps } from "../types/RegisterUserFormProps";
+import { RegisterUserFormProps } from "../types/registerUserFormProps";
 import { AccountDataForm } from "./AccountDataForm";
 import { FormStepper } from "./FormStepper";
 import { PersonalInfoForm } from "./PersonalInfoForm";

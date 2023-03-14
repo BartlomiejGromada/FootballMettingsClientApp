@@ -1,17 +1,13 @@
-import DefaultFootballPitchImage from "@assets/DefaultFootballPitchImage.jpg";
 import { StyledPagination } from "@components/mui";
-import { FetchGetParams } from "@customTypes/fetchGetParams";
 import { InfoOutlined } from "@mui/icons-material";
 import {
-  Box,
   CircularProgress,
   Grid,
   IconButton,
   ImageList,
   ImageListItem,
   ImageListItemBar,
-  Pagination,
-  TablePagination,
+  Tooltip,
   useMediaQuery,
 } from "@mui/material";
 import { useState } from "react";
@@ -29,7 +25,16 @@ export function FootballPitchesList() {
   const { data, isFetching, isError } = useFootballPitchesQuery(pagination);
 
   if (isFetching) {
-    return <CircularProgress />;
+    return (
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        marginTop={10}
+      >
+        <CircularProgress size="50px" />
+      </Grid>
+    );
   }
 
   if (isError) {
@@ -51,22 +56,30 @@ export function FootballPitchesList() {
                 src={
                   item.image
                     ? `data:image/jpeg;base64,${item.image}`
-                    : DefaultFootballPitchImage
+                    : "assets/DefaultFootballPitchImage.jpg"
                 }
                 alt={item.name}
                 loading="lazy"
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "cover", borderRadius: 4 }}
               />
               <ImageListItemBar
                 title={item.name}
                 subtitle={`${item.city}`}
+                sx={{
+                  borderBottomLeftRadius: 4,
+                  borderBottomRightRadius: 4,
+                }}
                 actionIcon={
-                  <IconButton
-                    sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                    aria-label={`info about ${item.name}`}
+                  <Tooltip
+                    title={`${item.city}, ${item.street} ${item.streetNumber}`}
                   >
-                    <InfoOutlined />
-                  </IconButton>
+                    <IconButton
+                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                      aria-label={`info about ${item.name}`}
+                    >
+                      <InfoOutlined />
+                    </IconButton>
+                  </Tooltip>
                 }
               />
             </ImageListItem>

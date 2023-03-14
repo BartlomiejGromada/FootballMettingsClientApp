@@ -1,6 +1,6 @@
 import { axios } from "@services/Axios";
 import { AxiosError } from "axios";
-import { LoginUserFormProps } from "../types/LoginUserFormProps";
+import { LoginUserFormProps } from "../types/loginUserFormProps";
 
 const loginUser = async (data: LoginUserFormProps) => {
   try {

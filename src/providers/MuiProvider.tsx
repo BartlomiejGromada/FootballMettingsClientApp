@@ -15,7 +15,51 @@ const theme = createTheme({
       contrastText: "#1F2937",
     },
   },
+  typography: {
+    h1: {
+      fontSize: 28,
+      fontWeight: "bold",
+    },
+    h2: {
+      fontSize: 24,
+      fontWeight: "bold",
+    },
+    h3: {
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    subtitle1: {
+      fontSize: 14,
+      fontWeight: "600",
+      color: "GrayText",
+    },
+    subtitle2: {
+      fontSize: 12,
+      fontWeight: "500",
+      color: "GrayText",
+    },
+  },
   components: {
+    MuiButton: {
+      defaultProps: {
+        variant: "contained",
+        color: "primary",
+      },
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          ...{
+            borderRadius: 4,
+            textTransform: "unset",
+            fontSize: "1rem",
+            fontWeight: 600,
+            lineHeight: "1.5rem",
+          },
+          ...(ownerState.variant === "contained" && {
+            boxShadow: "unset",
+          }),
+        }),
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {},
     },
