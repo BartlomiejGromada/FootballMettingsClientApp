@@ -10,11 +10,6 @@ function AddFootballPitchePage() {
       backLink={protectedPagesPathes.FootballPitchesPagePath}
     >
       <FootballPitchForm />
-      {/* Name - string */}
-      {/* City - string */}
-      {/* Street - string */}
-      {/* StreetNumber - string */}
-      {/* Image - byte[] */}
     </PageLayout>
   );
 }
