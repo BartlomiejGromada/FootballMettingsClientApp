@@ -6,6 +6,7 @@ interface Props {
   name: string;
   label: string;
   type?: string;
+  defaultValue?: string;
   adornment?: {
     type: "start" | "end";
     position: "start" | "end";
@@ -22,6 +23,7 @@ function StyledTextField(props: Props) {
   const {
     type = "text",
     name,
+    defaultValue,
     adornment,
     variant = "outlined",
     size = "medium",
@@ -38,6 +40,7 @@ function StyledTextField(props: Props) {
       error={!!errors[name]}
       helperText={errors[name]?.message?.toString() ?? ""}
       type={type}
+      defaultValue={defaultValue}
       variant={variant}
       size={size}
       InputProps={{

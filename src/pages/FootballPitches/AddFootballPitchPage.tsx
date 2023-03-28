@@ -1,12 +1,12 @@
-import { FootballPitchForm } from "@features/FootballPitches/components/FootballPitchForm";
+import { FootballPitchForm } from "@features/FootballPitches";
 import { protectedPagesPathes } from "@routes/protectedPages";
 import { PageLayout } from "layouts/PageLayout";
 
 function AddFootballPitchePage() {
   return (
     <PageLayout
-      title="Football pitches"
-      subTitle="Add football pitch"
+      title="Add football pitch"
+      subTitle="Football pitches"
       backLink={protectedPagesPathes.FootballPitchesPagePath}
     >
       <FootballPitchForm />

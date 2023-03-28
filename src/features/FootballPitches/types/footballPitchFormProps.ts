@@ -3,5 +3,4 @@ export interface FootballPitchFormProps {
   city: string;
   street: string;
   streetNumber: string;
-  image: string;
 }

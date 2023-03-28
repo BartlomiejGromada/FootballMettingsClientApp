@@ -1,6 +1,8 @@
 import { StyledTextField } from "@components/mui";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AddIcCallOutlined, PhotoCamera } from "@mui/icons-material";
+import { PhotoCamera } from "@mui/icons-material";
+import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Button,
@@ -11,23 +13,28 @@ import {
 } from "@mui/material";
 import { protectedPagesPathes } from "@routes/protectedPages";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { base64toBlob } from "@utils/base64ToBlob";
 import { useSnackbar } from "notistack";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { object, string } from "yup";
-import { addFootballPitch } from "../api";
+import { addFootballPitch, editFootballPitch } from "../api";
+import { FootballPitch } from "../types/footballPitch";
 import { FootballPitchFormProps } from "../types/footballPitchFormProps";
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
-import SendIcon from "@mui/icons-material/Send";
 
 const schema = object<FootballPitchFormProps>({
   name: string().required("Field required"),
   city: string().required("Field required"),
 });
 
-function FootballPitchForm() {
+interface FootballPitchesFormProps {
+  footballPitch?: FootballPitch;
+}
+
+function FootballPitchForm(props: FootballPitchesFormProps) {
+  const { footballPitch } = props;
+
   const formMethods = useForm<FootballPitchFormProps>({
     mode: "onTouched",
     resolver: yupResolver(schema),
@@ -40,15 +47,16 @@ function FootballPitchForm() {
 
   const mutation = useMutation({
     mutationFn: (data: FootballPitchFormProps) => {
-      const formData = new FormData();
-      formData.append("data", JSON.stringify(data));
-      if (image) formData.append("image", image);
-
-      return addFootballPitch(formData);
+      return !footballPitch
+        ? addFootballPitch(data, image)
+        : editFootballPitch(footballPitch.id, data, image);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["football-pitches"] });
       navigate(protectedPagesPathes.FootballPitchesPagePath);
+      enqueueSnackbar("Football pitch was successfully added", {
+        variant: "success",
+      });
     },
   });
 
@@ -65,6 +73,17 @@ function FootballPitchForm() {
   const [image, setImage] = useState<File | undefined>();
   const imageInputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (footballPitch && footballPitch.image) {
+      const blob = base64toBlob(footballPitch.image, "image/jpeg");
+      const file = new File([blob], "file.jpg", {
+        type: "image/jpeg",
+      });
+
+      setImage(file);
+    }
+  }, [footballPitch]);
+
   return (
     <FormProvider {...formMethods}>
       <form
@@ -74,15 +93,32 @@ function FootballPitchForm() {
           display: "flex",
           flexDirection: "column",
           height: "100%",
+          width: "450px",
         }}
       >
-        <Grid container direction="column" gap={1}>
-          <StyledTextField name={"name"} label={"Name"} />
-          <StyledTextField name={"city"} label={"City"} />
-          <StyledTextField name={"street"} label={"Street"} />
-          <StyledTextField name={"streetNumber"} label={"Street number"} />
+        <Grid container flexDirection="column" gap={1} width="100%">
+          <StyledTextField
+            name={"name"}
+            label={"Name"}
+            defaultValue={footballPitch?.name}
+          />
+          <StyledTextField
+            name={"city"}
+            label={"City"}
+            defaultValue={footballPitch?.city}
+          />
+          <StyledTextField
+            name={"street"}
+            label={"Street"}
+            defaultValue={footballPitch?.street}
+          />
+          <StyledTextField
+            name={"streetNumber"}
+            label={"Street number"}
+            defaultValue={footballPitch?.streetNumber}
+          />
 
-          <Grid container marginTop={1} gap={2} flexDirection="column">
+          <Grid marginTop={1}>
             <Grid item>
               <input
                 ref={imageInputRef}
@@ -90,7 +126,9 @@ function FootballPitchForm() {
                 style={{ display: "none" }}
                 id="raised-button-file"
                 type="file"
-                onChange={(e) => setImage(e.target.files![0])}
+                onChange={(e) => {
+                  setImage(e.target.files![0]);
+                }}
               />
               <label htmlFor="raised-button-file">
                 <Button
@@ -150,7 +188,7 @@ function FootballPitchForm() {
               }
               disabled={!formMethods.formState.isValid || mutation.isLoading}
             >
-              Add
+              Accept
             </Button>
             <Button
               startIcon={<ClearIcon />}
@@ -168,4 +206,5 @@ function FootballPitchForm() {
     </FormProvider>
   );
 }
+
 export { FootballPitchForm };

@@ -1,19 +1,27 @@
 import { StyledPagination } from "@components/mui";
+import { IconButtonWithTooltip } from "@components/ui";
 import { InfoOutlined } from "@mui/icons-material";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   CircularProgress,
   Grid,
-  IconButton,
   ImageList,
   ImageListItem,
   ImageListItemBar,
-  Tooltip,
   useMediaQuery,
 } from "@mui/material";
+import { protectedPagesPathes } from "@routes/protectedPages";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFootballPitchesQuery } from "../hooks/useFootballPitchesQuery";
 
-export function FootballPitchesList() {
+interface FootballPitchesListProps {
+  searchFootballPitchName: string;
+}
+
+export function FootballPitchesList(props: FootballPitchesListProps) {
+  const { searchFootballPitchName } = props;
+
   const lg = useMediaQuery("(min-width:1200px)");
   const md = useMediaQuery("(min-width:900px)");
 
@@ -22,7 +30,12 @@ export function FootballPitchesList() {
     pageSize: 5,
   });
 
-  const { data, isFetching, isError } = useFootballPitchesQuery(pagination);
+  const { data, isFetching, isError } = useFootballPitchesQuery(
+    pagination,
+    searchFootballPitchName
+  );
+
+  const navigate = useNavigate();
 
   if (isFetching) {
     return (
@@ -63,23 +76,38 @@ export function FootballPitchesList() {
                 style={{ objectFit: "cover", borderRadius: 4 }}
               />
               <ImageListItemBar
-                title={item.name}
+                title={
+                  item.name.length <= 20
+                    ? item.name
+                    : `${item.name.slice(0, 18)}...`
+                }
                 subtitle={`${item.city}`}
                 sx={{
                   borderBottomLeftRadius: 4,
                   borderBottomRightRadius: 4,
                 }}
                 actionIcon={
-                  <Tooltip
-                    title={`${item.city}, ${item.street} ${item.streetNumber}`}
-                  >
-                    <IconButton
-                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                      aria-label={`info about ${item.name}`}
-                    >
-                      <InfoOutlined />
-                    </IconButton>
-                  </Tooltip>
+                  <>
+                    <IconButtonWithTooltip
+                      text={`${item.name} - [${item.city}, ${
+                        item.street ?? ""
+                      } ${item.streetNumber ?? ""}]`}
+                      icon={InfoOutlined}
+                    />
+                    <IconButtonWithTooltip
+                      text="Edit"
+                      icon={EditIcon}
+                      onClick={() => {
+                        navigate(
+                          protectedPagesPathes.EditFootballPitchPagePath.replace(
+                            ":id",
+                            item.id.toString()
+                          ),
+                          { state: { id: item.id } }
+                        );
+                      }}
+                    />
+                  </>
                 }
               />
             </ImageListItem>

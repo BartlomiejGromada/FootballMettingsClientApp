@@ -5,20 +5,27 @@ import { useQuery } from "@tanstack/react-query";
 import { getFootballPitches } from "../api";
 import { FootballPitch } from "../types/footballPitch";
 
-function useFootballPitchesQuery(pagination: Pagination) {
+function useFootballPitchesQuery(
+  pagination: Pagination,
+  searchFootballPitchName: string
+) {
   const query = useQuery<PagedResult<FootballPitch>>({
     queryKey: [
       "football-pitches",
       {
         page: pagination.page + 1,
         pageSize: pagination.pageSize,
+        search: searchFootballPitchName,
       },
     ],
     queryFn: () =>
-      getFootballPitches({
-        ...pagination,
-        page: pagination.page + 1,
-      }),
+      getFootballPitches(
+        {
+          ...pagination,
+          page: pagination.page + 1,
+        },
+        searchFootballPitchName
+      ),
   });
 
   return query;
